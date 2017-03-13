@@ -71,13 +71,19 @@ def get_minibatch(roidb, num_classes):
 
         blobs['rois'] = rois_blob
         blobs['labels'] = labels_blob
-
         if cfg.TRAIN.BBOX_REG:
             blobs['bbox_targets'] = bbox_targets_blob
             blobs['bbox_inside_weights'] = bbox_inside_blob
             blobs['bbox_outside_weights'] = \
                 np.array(bbox_inside_blob > 0).astype(np.float32)
+    blobs['target_vector'] = np.zeros((32,32))
 
+    for boxes in blobs['gt_boxes']:
+        temp = boxes / 32.0
+        temp = np.floor(temp).astype(int)
+        blobs['target_vector'][temp[0]:temp[2],temp[1]:temp[3]] = 1.
+
+    blobs['target_vector'].reshape((1,1024))
     return blobs
 
 def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):

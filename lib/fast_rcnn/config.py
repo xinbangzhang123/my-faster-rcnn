@@ -11,7 +11,8 @@ This file specifies default config options for Fast R-CNN. You should not
 change values in this file. Instead, you should write a config file (in yaml)
 and use cfg_from_file(yaml_file) to load it and override the default options.
 
-Most tools in $ROOT/tools take a --cfg option to specify an override file.
+Most tools in $
+/tools take a --cfg option to specify an override file.
     - See tools/{train,test}_net.py for example code that uses cfg_from_file()
     - See experiments/cfgs/*.yml for example YAML config override files
 """
@@ -35,10 +36,11 @@ __C.TRAIN = edict()
 
 # Scales to use during training (can list multiple scales)
 # Each scale is the pixel size of an image's shortest side
-__C.TRAIN.SCALES = (600,)
+__C.TRAIN.SCALES = (1024,1024)
+#original scales
 
 # Max pixel size of the longest side of a scaled input image
-__C.TRAIN.MAX_SIZE = 1000
+__C.TRAIN.MAX_SIZE = 1024
 
 # Images to use per minibatch
 __C.TRAIN.IMS_PER_BATCH = 2
